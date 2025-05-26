@@ -36,9 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="style.css"> <!-- Added stylesheet link -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CSS CDN -->
 </head>
 <body>
-    <h2>Login</h2>
+    <div class="text-center my-4">
+        <h1 class="text-4xl font-bold">BLOG POSTS</h1>
+        <h2 class="text-3xl font-bold">LOGIN</h2>
+    </div>
     <form action="login.php" method="post">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" required><br><br>
@@ -46,6 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Login">
     </form>
-    <p>Don't have an account? <a href="register.php">Register here</a>.</p>
+    <p class="text-xl">Don't have an account? <a href="register.php">Register here</a>.</p>
 </body>
 </html>

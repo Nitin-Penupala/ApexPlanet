@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 include 'db_connect.php';
 
 $post_id = $_GET['id'] ?? null;
@@ -29,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['post_id'])) {
     $stmt->bind_param("ssi", $title, $content, $id);
 
     if ($stmt->execute()) {
-        // Removed echo to avoid header already sent error
+        echo "Post updated successfully!";
         header("Location: index.php");
         exit();
     } else {
@@ -50,6 +48,8 @@ if (!$post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post</title>
+    <link rel="stylesheet" href="style.css"> <!-- Added stylesheet link -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CSS CDN -->
 </head>
 <body>
     <h2>Edit Post</h2>
@@ -59,7 +59,7 @@ if (!$post) {
         <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
         <label for="content">Content:</label><br>
         <textarea id="content" name="content" rows="10" cols="50"><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
-        <input type="submit" value="Update Post">
+        <input type="submit" value="Update Post" class="button">
     </form>
     <br>
     <a href="index.php">Back to Posts</a>

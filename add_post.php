@@ -27,17 +27,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Post</title>
+    <link rel="stylesheet" href="style.css"> <!-- Added stylesheet link -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CSS CDN -->
 </head>
 <body>
-    <h2>Add New Post</h2>
+    <h2 class="text-4xl font-bold">NEW POST</h2>
     <form action="add_post.php" method="post">
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" required><br><br>
         <label for="content">Content:</label><br>
         <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
-        <input type="submit" value="Add Post">
+        <input type="submit" value="Add Post" class="button">
     </form>
     <br>
-    <a href="index.php">Back to Posts</a>
+    <a href="index.php" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        Back to Posts
+    </a>
 </body>
 </html>
