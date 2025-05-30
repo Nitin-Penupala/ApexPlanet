@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT id, username, password FROM users WHERE username = ?";
+    $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role']; // Save role in session
             header("Location: index.php"); // Redirect to a protected page
             exit();
         } else {
@@ -52,5 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Login">
     </form>
     <p class="text-xl">Don't have an account? <a href="register.php">Register here</a>.</p>
+    <script>
+      document.querySelector('form').addEventListener('submit', function(e) {
+          var username = document.getElementById('username').value.trim();
+          var password = document.getElementById('password').value;
+          if(username === "" || password === "") {
+              alert("All fields are required.");
+              e.preventDefault();
+          }
+      });
+    </script>
 </body>
 </html>

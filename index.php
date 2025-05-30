@@ -86,12 +86,15 @@ $totalPages = ceil($totalPosts / $limit);
     <?php
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "<h3 class='text-xl font-bold text-blue-600'>" . htmlspecialchars($row["title"]) . "</h3>";
+            echo "<h3 class='text-2xl font-bold text-blue-600'>" . htmlspecialchars($row["title"]) . "</h3>";
             echo "<p>" . nl2br(htmlspecialchars($row["content"])) . "</p>";
             echo "<p><small>Posted on: " . $row["created_at"] . "</small></p>";
             echo "<p>";
             echo "<a href='edit_post.php?id=" . $row["id"] . "' class='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'>Edit</a> ";
-            echo "<a href='delete_post.php?id=" . $row["id"] . "' class='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded' onclick='return confirm(\"Are you sure you want to delete this post?\");'>Delete</a>";
+            // Display Delete button only for admin users
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                echo "<a href='delete_post.php?id=" . $row["id"] . "' class='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded' onclick='return confirm(\"Are you sure you want to delete this post?\");'>Delete</a>";
+            }
             echo "</p>";
             echo "<hr>";
         }

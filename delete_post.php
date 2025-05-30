@@ -1,8 +1,14 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 include 'db_connect.php';
+
+// Check if the user is admin; if not, deny deletion.
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    die("Access denied: Only admin users can delete posts.");
+}
 
 $post_id = $_GET['id'] ?? null;
 

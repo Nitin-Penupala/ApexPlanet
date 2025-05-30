@@ -43,5 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="index.php" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
         Back to Posts
     </a>
+    <script>
+      document.querySelector('form').addEventListener('submit', function(e) {
+          var title = document.getElementById('title').value.trim();
+          var content = document.getElementById('content').value.trim();
+          if(title === "" || content === "") {
+              alert("Title and Content cannot be empty.");
+              e.preventDefault();
+          }
+      });
+    </script>
 </body>
 </html>
