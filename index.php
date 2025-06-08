@@ -67,16 +67,9 @@ $totalPages = ceil($totalPosts / $limit);
 
     <!-- Centralized Blog Posts Heading -->
     <div class="flex justify-center mt-4">
-        <h2 class="text-3xl font-bold">Blog Posts</h2>
+        <h2 class="text-6xl font-bold">Blog Posts</h2>
     </div>
 
-    <!-- "Add New Post" button aligned to the top right -->
-    <div class="flex justify-end pr-4">
-        <a href="add_post.php" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-            NEW POST
-        </a>
-    </div>
-    
     <!-- Search Form -->
     <form method="GET" action="index.php" class="search-form my-4 flex justify-center gap-4">
         <input type="text" name="search" placeholder="Search posts..." value="<?php echo htmlspecialchars($search); ?>" class="px-4 py-2 border rounded">
@@ -99,8 +92,15 @@ $totalPages = ceil($totalPosts / $limit);
             echo "<hr>";
         }
     } else {
+        // If no posts found, show message and a button to view all posts
         echo "<p>No posts found.</p>";
+        echo "<a href='index.php' class='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'>All Posts</a>";
     }
+
+    // Add the NEW POST button at the bottom of the page (above pagination)
+    echo "<div class='flex justify-center my-4'>";
+    echo "<a href='add_post.php' class='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'>NEW POST</a>";
+    echo "</div>";
 
     // Pagination links
     if ($totalPages > 1) {
@@ -114,6 +114,6 @@ $totalPages = ceil($totalPosts / $limit);
     }
 
     $conn->close();
-    ?>
+     ?>
 </body>
 </html>

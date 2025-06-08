@@ -47,15 +47,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CSS CDN -->
 </head>
 <body>
-    <h2>Register</h2>
+    <h2 class="text-4xl font-bold">Register</h2>
     <form action="register.php" method="post">
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
+        <input type="text" id="username" name="username" required class="px-4 py-2 border rounded w-full" 
+               title="Username"><br><br>
         <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+        <div class="relative inline-block w-full">
+            <input type="password" id="password" name="password" required 
+                   pattern="^(?=.{8,})(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).*$" 
+                   title="Password must be at least 8 characters, include one uppercase letter and one special character."
+                   class="px-4 py-2 border rounded w-full pr-20">
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <input type="checkbox" id="showPassword" class="h-6 w-6">
+                <label for="showPassword" class="ml-1 text-sm">Show</label>
+            </span>
+        </div><br>
         <!-- New role selection field -->
         <label for="role">Role:</label><br>
-        <select id="role" name="role" required>
+        <select id="role" name="role" required class="px-4 py-2 border rounded w-full"><br><br>
             <option value="user">User</option>
             <option value="admin">Admin</option>
         </select><br><br>
@@ -64,14 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p>Already have an account? <a href="login.php">Log in here</a>.</p>
 
     <script>
+      document.getElementById('showPassword').addEventListener('change', function() {
+          var passField = document.getElementById('password');
+          passField.type = this.checked ? 'text' : 'password';
+      });
       document.querySelector('form').addEventListener('submit', function(e) {
           var username = document.getElementById('username').value.trim();
           var password = document.getElementById('password').value;
-          // Username must be at least 8 characters long, have one special character,
-          // one uppercase letter, and more than one lowercase letter.
-          var usernamePattern = /^(?=.{8,})(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=(?:.*[a-z]){2,}).*$/;
-          if (!usernamePattern.test(username)) {
-              alert("Username must be at least 8 characters, include one special character, one uppercase letter, and at least two lowercase letters.");
+          if(username === "") {
+              alert("Username is required.");
               e.preventDefault();
               return;
           }
